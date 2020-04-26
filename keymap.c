@@ -38,7 +38,7 @@ enum custom_keycodes {
   CTL3,
   CTL4,
   CTL5,
-  NEXTWINDOW,
+  CTL6,
   CUT,
   COPY,
   PASTE,
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMBER] = LAYOUT( 
     NUMBER,   CURSOL,   MOUSE,
     CTL1,    CTL2,    CTL3,
-    NEXTWINDOW,    CTL4,    CTL5,
+    CTL4,    CTL5,    CTL6,
     KC_TAB,    KC_LALT,    KC_ENT,
     KC_LSFT,    KC_LCTL,  NEWTAB
   ),
@@ -203,14 +203,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_5);
       }
       break;
-    case NEXTWINDOW:
+    case CTL6:
       if (record->event.pressed) {
-        register_code(KC_LALT);
-        register_code(KC_TAB);
-        unregister_code(KC_TAB);
-        register_code(KC_TAB);
-        unregister_code(KC_TAB);
-        unregister_code(KC_LALT);
+        register_code(KC_LCTL);
+        register_code(KC_6);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_6);
       }
       break;
     case CUT:
