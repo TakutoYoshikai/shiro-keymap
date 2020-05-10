@@ -30,6 +30,7 @@ enum custom_keycodes {
   UNDO,
   SELECTALL,
   TERMINAL,
+  CLSTERMINAL,
   CLSWINDOW,
   BROWSER,
   CTL1,
@@ -38,7 +39,6 @@ enum custom_keycodes {
   CTL4,
   CTL5,
   CTL6,
-  CTL0,
   CUT,
   COPY,
   PASTE,
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CUT,   COPY,  PASTE,
     SELECTALL,  UNDO,  REDO,
     TERMINAL,  BROWSER,  KC_ENT,
-    CTL0,   CLSWINDOW,  KC_BSPC
+    CLSTERMINAL,   CLSWINDOW,  KC_BSPC
   ),
 };
 
@@ -147,12 +147,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_F);
       }
       break;
+    case CLSTERMINAL:
+      if (record->event.pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_D);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_D);
+      }
+      break;
     case CLSWINDOW:
       if (record->event.pressed) {
-        register_code(KC_LALT);
-        register_code(KC_F4);
-        unregister_code(KC_LALT);
-        unregister_code(KC_F4);
+        register_code(KC_LCTL);
+        register_code(KC_W);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_W);
       }
       break;
     case CTL1:
@@ -201,14 +209,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_6);
         unregister_code(KC_LCTL);
         unregister_code(KC_6);
-      }
-      break;
-    case CTL0:
-      if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_0);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_0);
       }
       break;
     case CUT:
